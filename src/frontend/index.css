@@ -1,0 +1,299 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* JetBrains Mono - monospace display font */
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Orbitron-like via Geist Mono for display headings */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/assets/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --radius: 0.25rem;
+
+    /* Cyberpunk dark theme - permanent dark mode */
+    --background: 0.07 0.012 270;
+    --foreground: 0.96 0.02 195;
+    --card: 0.1 0.018 265;
+    --card-foreground: 0.92 0.03 195;
+    --popover: 0.12 0.02 265;
+    --popover-foreground: 0.92 0.03 195;
+
+    /* Neon cyan as primary */
+    --primary: 0.85 0.22 195;
+    --primary-foreground: 0.07 0.012 270;
+
+    /* Dark secondary */
+    --secondary: 0.14 0.025 270;
+    --secondary-foreground: 0.9 0.04 195;
+
+    --muted: 0.12 0.02 265;
+    --muted-foreground: 0.55 0.05 250;
+
+    /* Hot pink accent */
+    --accent: 0.72 0.32 320;
+    --accent-foreground: 0.07 0.012 270;
+
+    --destructive: 0.65 0.25 25;
+    --destructive-foreground: 0.96 0.02 195;
+
+    --border: 0.25 0.04 265;
+    --input: 0.15 0.025 265;
+    --ring: 0.85 0.22 195;
+
+    --chart-1: 0.85 0.22 195;
+    --chart-2: 0.72 0.32 320;
+    --chart-3: 0.85 0.28 145;
+    --chart-4: 0.82 0.22 85;
+    --chart-5: 0.65 0.25 25;
+
+    --sidebar: 0.1 0.018 265;
+    --sidebar-foreground: 0.92 0.03 195;
+    --sidebar-primary: 0.85 0.22 195;
+    --sidebar-primary-foreground: 0.07 0.012 270;
+    --sidebar-accent: 0.14 0.025 270;
+    --sidebar-accent-foreground: 0.9 0.04 195;
+    --sidebar-border: 0.25 0.04 265;
+    --sidebar-ring: 0.85 0.22 195;
+
+    /* Neon glow custom tokens */
+    --neon-cyan: #00ffff;
+    --neon-pink: #ff00ff;
+    --neon-green: #00ff41;
+    --neon-orange: #ff6600;
+    --neon-yellow: #ffff00;
+    --neon-red: #ff2244;
+    --arena-bg: #0a0a0f;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "JetBrains Mono", "Courier New", monospace;
+    overflow: hidden;
+  }
+}
+
+/* Neon glow text effects */
+.neon-text-cyan {
+  color: #00ffff;
+  text-shadow:
+    0 0 7px #00ffff,
+    0 0 21px #00ffff,
+    0 0 42px #00ffff,
+    0 0 84px #00afaf;
+}
+
+.neon-text-pink {
+  color: #ff00ff;
+  text-shadow:
+    0 0 7px #ff00ff,
+    0 0 21px #ff00ff,
+    0 0 42px #ff00ff,
+    0 0 84px #af00af;
+}
+
+.neon-text-green {
+  color: #00ff41;
+  text-shadow:
+    0 0 7px #00ff41,
+    0 0 21px #00ff41,
+    0 0 42px #00ff41;
+}
+
+.neon-text-red {
+  color: #ff2244;
+  text-shadow:
+    0 0 7px #ff2244,
+    0 0 21px #ff2244,
+    0 0 42px #ff2244,
+    0 0 84px #af0022;
+}
+
+.neon-text-yellow {
+  color: #ffff00;
+  text-shadow:
+    0 0 7px #ffff00,
+    0 0 21px #ffff00;
+}
+
+.neon-border-cyan {
+  border-color: #00ffff;
+  box-shadow:
+    0 0 5px #00ffff,
+    inset 0 0 5px rgba(0, 255, 255, 0.1);
+}
+
+.neon-border-pink {
+  border-color: #ff00ff;
+  box-shadow:
+    0 0 5px #ff00ff,
+    inset 0 0 5px rgba(255, 0, 255, 0.1);
+}
+
+/* Flicker animation for title */
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    opacity: 0.85;
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    text-shadow:
+      0 0 7px #00ffff,
+      0 0 21px #00ffff,
+      0 0 42px #00ffff,
+      0 0 84px #00afaf;
+  }
+  50% {
+    text-shadow:
+      0 0 14px #00ffff,
+      0 0 42px #00ffff,
+      0 0 84px #00ffff,
+      0 0 168px #00afaf;
+  }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.title-flicker {
+  animation: flicker 4s infinite, pulse-glow 2s ease-in-out infinite;
+}
+
+.press-enter-pulse {
+  animation: pulse-glow 1.5s ease-in-out infinite;
+}
+
+/* Input styling override for neon theme */
+.neon-input {
+  background: rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid #00ffff !important;
+  color: #00ffff !important;
+  font-family: "JetBrains Mono", monospace !important;
+  box-shadow: 0 0 5px #00ffff, inset 0 0 5px rgba(0, 255, 255, 0.05) !important;
+  outline: none !important;
+}
+
+.neon-input:focus {
+  box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, inset 0 0 5px rgba(0, 255, 255, 0.1) !important;
+}
+
+.neon-input::placeholder {
+  color: rgba(0, 255, 255, 0.4) !important;
+}
+
+.neon-button {
+  background: transparent !important;
+  border: 2px solid #00ffff !important;
+  color: #00ffff !important;
+  font-family: "JetBrains Mono", monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  box-shadow: 0 0 10px #00ffff, inset 0 0 10px rgba(0, 255, 255, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.neon-button:hover {
+  background: rgba(0, 255, 255, 0.1) !important;
+  box-shadow: 0 0 20px #00ffff, 0 0 40px #00ffff, inset 0 0 20px rgba(0, 255, 255, 0.1) !important;
+}
+
+.neon-button-pink {
+  background: transparent !important;
+  border: 2px solid #ff00ff !important;
+  color: #ff00ff !important;
+  font-family: "JetBrains Mono", monospace !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.15em !important;
+  box-shadow: 0 0 10px #ff00ff, inset 0 0 10px rgba(255, 0, 255, 0.05) !important;
+  transition: all 0.2s ease !important;
+}
+
+.neon-button-pink:hover {
+  background: rgba(255, 0, 255, 0.1) !important;
+  box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff, inset 0 0 20px rgba(255, 0, 255, 0.1) !important;
+}
+
+/* ─── High-fidelity game animations ────────────────────────── */
+
+@keyframes titleFlicker {
+  0%, 18%, 20%, 22%, 24%, 26%, 53%, 55%, 57%, 100% {
+    text-shadow:
+      0 0 10px #00ffff,
+      0 0 30px #00ffff,
+      0 0 60px #00ffff88,
+      0 0 100px #00ffff44;
+    opacity: 1;
+  }
+  19%, 21%, 23%, 25%, 54%, 56% {
+    text-shadow:
+      0 0 4px #00ffff,
+      0 0 10px #00ffff44;
+    opacity: 0.88;
+  }
+}
+
+@keyframes subtitlePulse {
+  0%, 100% {
+    text-shadow: 0 0 10px #ff00ff, 0 0 30px #ff00ff, 0 0 60px #ff00ff44;
+    transform: scale(1);
+  }
+  50% {
+    text-shadow: 0 0 18px #ff00ff, 0 0 50px #ff00ff, 0 0 100px #ff00ff66;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes taglineScan {
+  0% { opacity: 0.6; letter-spacing: 0.25em; }
+  50% { opacity: 1; letter-spacing: 0.3em; }
+  100% { opacity: 0.6; letter-spacing: 0.25em; }
+}
+
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 0 20px #00ffff66, 0 0 40px #00ffff22, inset 0 0 20px rgba(0,255,255,0.06);
+  }
+  50% {
+    box-shadow: 0 0 35px #00ffff99, 0 0 70px #00ffff33, inset 0 0 30px rgba(0,255,255,0.1);
+  }
+}
+
+@keyframes gameOverFlicker {
+  0%, 100% {
+    text-shadow: 0 0 15px #ff2244, 0 0 40px #ff224488, 0 0 80px #ff224422;
+    opacity: 1;
+  }
+  48%, 52% {
+    text-shadow: 0 0 6px #ff2244, 0 0 10px #ff224444;
+    opacity: 0.82;
+  }
+}
+
+@keyframes newHsBounce {
+  0% { transform: scale(1) translateY(0); }
+  100% { transform: scale(1.06) translateY(-3px); }
+}
